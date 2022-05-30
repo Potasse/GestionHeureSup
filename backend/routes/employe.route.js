@@ -21,6 +21,30 @@ router.route('/create-employe').post((req, res, next) => {
 
 });
 
+
+
+// Update HeureSup
+router.route('/saveheuresup').put((req, res, next) => {
+
+
+  const filter = { matricule: req.body.matricule };
+  const updateHeure = { heureS: req.body.heureS };
+
+
+  employeSchema.findOneAndUpdate( filter, updateHeure, (error, data) => {
+
+    if (error) {
+      return next(error)
+    } else {
+
+      res.json(data)
+      res.send(console.log(data));
+      
+    }
+  })
+
+});
+
 // READ Employes
 router.route('/allemployes').get((req, res) => {
 
@@ -73,6 +97,7 @@ router.route('/edit-employe').get((req, res) => {
       return next(error)
     } else {
       res.json(data)
+      //res.redirect('http://localhost:3000/employes');
     }
 
   })

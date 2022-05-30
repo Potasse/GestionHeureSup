@@ -15,6 +15,7 @@ function Rechercheemploye() {
 
   const HandleSearch = async (e) => {
     e.preventDefault();
+
     var matriculeS = document.getElementById("matricule").value;
 
     if (!matriculeS) {
@@ -36,6 +37,8 @@ function Rechercheemploye() {
           setPrenom("");
           setMatriculeS("");
         } else {
+
+          localStorage.setItem('matsearch', GetPosts.data.matricule);
           setNom(GetPosts.data.nom);
           setPrenom(GetPosts.data.prenom);
           setMatriculeS(GetPosts.data.matricule);

@@ -5,10 +5,10 @@ import Saisiehs from '../components/Saisiehs/Saisiehs'
 function SaisiePage() {
   return (
       
-    <div className='bg-gradient-to-b from-sky-200 to-sky-500'>
+    <div>
         
         
-          <Rechercheemploye  />
+          <Rechercheemploye  className='bg-gradient-to-b from-sky-200 to-sky-500'/>
         
        
         <Saisiehs />

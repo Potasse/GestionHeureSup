@@ -15,6 +15,9 @@ let employeSchema = new Schema({
   },
   salaireB: {
     type: String
+  },
+  heureS: {
+    type: String
   }
 }, {
     collection: 'employes'

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Nvemploye from "./Nvemploye";
 import Editemployes from "./Editemploye";
+
+import { useContext } from "react";
+import ThemeContext from "../Context/ThemeContext";
 import axios from "axios";
 
 
@@ -9,6 +12,8 @@ function Employe() {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [lists, setLists] = useState([]);
+  const { displayCompo, setDisplayCompo }= useContext(ThemeContext);
+
 
   useEffect(() => {
 
@@ -23,11 +28,11 @@ function Employe() {
     console.log("getAll");
     
     try {
-      const userPosts = await axios.get(`http://localhost:5000/employe/allemployes`)
+      const employeGet = await axios.get(`http://localhost:5000/employe/allemployes`)
 
-      console.log(userPosts);
+      console.log(employeGet);
      
-      setLists(userPosts.data);
+      setLists(employeGet.data);
         
     } catch (err) {
           console.error(err.message);
@@ -39,7 +44,22 @@ function Employe() {
 
     console.log("EDIT");
     setIsOpen(true);
-    console.log(id);
+    setDisplayCompo(true);
+
+
+    try {
+      const editGet = await axios.get(`http://localhost:5000/employe/edit-employe?id=${ id }`)
+
+      
+      console.log(editGet.data);
+      localStorage.setItem('matricule', editGet.data.matricule);
+      localStorage.setItem('nom', editGet.data.nom);
+      localStorage.setItem('prenom', editGet.data.prenom);
+      localStorage.setItem('salaireB', editGet.data.salaireB);
+        
+    } catch (err) {
+          console.error(err.message);
+    }
 
   }
 
@@ -50,10 +70,10 @@ function Employe() {
 
     try {
 
-      const userDelete = await axios.delete(`http://localhost:5000/employe/delete-employe?id=${ id }`)
-      .then( userDelete =>{
+      const employeDelete = await axios.delete(`http://localhost:5000/employe/delete-employe?id=${ id }`)
+      .then( employeDelete =>{
           
-        console.log(userDelete.data);
+        console.log(employeDelete.data);
        
 
     })
@@ -75,7 +95,7 @@ function Employe() {
       {/* <h1 className="flex justify-center">CREATION DE NOUVEAU EMPLOYES</h1> */}
       {/* className={`mobile-menu  md:hidden ${isOpen ? "visible" : "hidden"}`} */}
 
-      <div name="principalComponent" className="bg-gradient-to-b
+      {/* <div name="principalComponent" className="bg-gradient-to-b
                  from-sky-200 to-sky-500">
           
           <div className={`${isOpen ? "hidden" : "visible"}`} >
@@ -88,7 +108,7 @@ function Employe() {
 
           </div>
 
-      </div>
+      </div> */}
 
     <div className="flex justify-center">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
